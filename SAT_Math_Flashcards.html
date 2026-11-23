@@ -1,0 +1,1116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+<title>SAT Math Passport — English Math Terms & Formulas</title>
+<style>
+  :root {
+    --bg-1: #fdf2f8;
+    --bg-2: #ede9fe;
+    --bg-3: #e0f2fe;
+    --glass: rgba(255, 255, 255, 0.92);
+    --glass-strong: rgba(255, 255, 255, 0.98);
+    --glass-border: rgba(255, 255, 255, 0.95);
+    --text-main: #1e1b4b;
+    --text-muted: #64748b;
+    --accent-violet: #7c3aed;
+    --accent-pink: #ec4899;
+    --grad-primary: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
+    --grad-secondary: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%);
+    --shadow-soft: 0 18px 40px -12px rgba(109, 40, 217, 0.16);
+    --shadow-glow: 0 10px 26px -4px rgba(139, 92, 246, 0.45);
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  html, body {
+    height: 100dvh;
+    width: 100%;
+    overflow: hidden;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    color: var(--text-main);
+    background: linear-gradient(135deg, var(--bg-1) 0%, var(--bg-2) 50%, var(--bg-3) 100%);
+  }
+
+  .orb {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(45px);
+    opacity: 0.55;
+    z-index: 0;
+    pointer-events: none;
+  }
+  .orb-1 { width: 240px; height: 240px; background: #f472b6; top: -60px; left: -60px; }
+  .orb-2 { width: 280px; height: 280px; background: #a78bfa; bottom: -80px; right: -70px; }
+  .orb-3 { width: 180px; height: 180px; background: #38bdf8; top: 42%; left: 60%; }
+
+  .app {
+    position: relative;
+    z-index: 1;
+    height: 100dvh;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: calc(12px + env(safe-area-inset-top)) 16px calc(14px + env(safe-area-inset-bottom));
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  .header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+  }
+
+  .brand-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .brand-badge {
+    background: var(--glass-strong);
+    border: 1.5px solid var(--glass-border);
+    padding: 5px 14px;
+    border-radius: 999px;
+    font-weight: 800;
+    font-size: 15px;
+    letter-spacing: -0.01em;
+    color: var(--text-main);
+    box-shadow: 0 6px 18px rgba(124, 58, 237, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .brand-badge span.grad {
+    background: var(--grad-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .mode-switcher {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.78);
+    padding: 6px;
+    border-radius: 22px;
+    border: 1.5px solid rgba(255, 255, 255, 0.9);
+    box-shadow: 0 10px 28px rgba(109, 40, 217, 0.12);
+  }
+  .mode-btn {
+    border: none;
+    outline: none;
+    height: 48px;
+    border-radius: 16px;
+    font-size: 16px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    background: rgba(255, 255, 255, 0.85);
+    color: #4c1d95;
+    box-shadow: 0 2px 6px rgba(124, 58, 237, 0.06);
+  }
+
+  .mode-btn.active {
+    background: var(--grad-secondary);
+    color: #ffffff;
+    box-shadow: var(--shadow-glow);
+  }
+
+  .progress-wrap {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 2px;
+    flex-shrink: 0;
+  }
+
+  .progress-track {
+    flex: 1;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 999px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    width: 1.5%;
+    background: var(--grad-primary);
+    border-radius: 999px;
+    transition: width 0.3s ease;
+  }
+  .progress-pill {
+    font-size: 13px;
+    font-weight: 700;
+    color: #5b21b6;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 3px 10px;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+
+  .stage {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+  }
+
+  .scene {
+    width: 100%;
+    height: 100%;
+    max-height: 450px;
+    perspective: 1200px;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .card {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.55s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+
+  .card.flipped {
+    transform: rotateY(180deg);
+  }
+
+  .card-face {
+    position: absolute;
+    inset: 0;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    background: var(--glass);
+    border: 2px solid var(--glass-border);
+    border-radius: 30px;
+    box-shadow: var(--shadow-soft);
+    padding: 20px 22px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .card-back {
+    transform: rotateY(180deg);
+    background: linear-gradient(165deg, rgba(255,255,255,0.98) 0%, rgba(245,243,255,0.96) 100%);
+  }
+
+  .card-top-bar {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .pill-tag {
+    font-size: 11px;
+    font-weight: 800;
+    padding: 5px 12px;
+    border-radius: 999px;
+    background: rgba(139, 92, 246, 0.12);
+    color: #6d28d9;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .iso-tag {
+    font-size: 12px;
+    font-weight: 800;
+    padding: 5px 11px;
+    border-radius: 999px;
+    background: rgba(236, 72, 153, 0.12);
+    color: #be185d;
+  }
+
+  .icon-frame {
+    width: 152px;
+    height: 112px;
+    border-radius: 22px;
+    padding: 10px;
+    background: linear-gradient(145deg, #ffffff 0%, #f5f3ff 100%);
+    box-shadow: 0 12px 28px rgba(109, 40, 217, 0.14), 0 0 0 1.5px rgba(139, 92, 246, 0.16);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .icon-frame svg, .quiz-icon svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+  .term-title {
+    font-size: clamp(24px, 6.2vw, 32px);
+    font-weight: 800;
+    text-align: center;
+    color: var(--text-main);
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+  }
+
+  .formula-badge {
+    font-size: 15px;
+    font-weight: 700;
+    color: #6d28d9;
+    background: rgba(139, 92, 246, 0.1);
+    padding: 5px 14px;
+    border-radius: 12px;
+  }
+
+  .tap-hint {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-muted);
+    background: rgba(255, 255, 255, 0.85);
+    padding: 7px 14px;
+    border-radius: 999px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .mini-topic {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #ffffff;
+    padding: 5px 12px 5px 8px;
+    border-radius: 999px;
+    box-shadow: 0 4px 12px rgba(109, 40, 217, 0.08);
+  }
+
+  .mini-icon-box {
+    width: 24px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .mini-icon-box svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  .mini-topic span {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-main);
+  }
+
+  .listen-btn {
+    border: none;
+    background: var(--grad-primary);
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 7px 14px;
+    border-radius: 999px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    box-shadow: 0 6px 16px rgba(236, 72, 153, 0.3);
+  }
+
+  .listen-btn:active {
+    transform: scale(0.94);
+  }
+
+  .back-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+  }
+
+  .label-small {
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #8b5cf6;
+  }
+
+  .meaning-text {
+    font-size: clamp(18px, 4.8vw, 23px);
+    font-weight: 800;
+    text-align: center;
+    color: var(--text-main);
+    line-height: 1.25;
+  }
+
+  .formula-box {
+    width: 100%;
+    max-width: 320px;
+    background: rgba(139, 92, 246, 0.08);
+    border: 1.5px solid rgba(139, 92, 246, 0.18);
+    border-radius: 20px;
+    padding: 10px 14px;
+    text-align: center;
+  }
+
+  .formula-box .f-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #6d28d9;
+    margin-bottom: 3px;
+  }
+
+  .formula-box .f-value {
+    font-size: 16px;
+    font-weight: 800;
+    background: var(--grad-secondary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .read-aloud {
+    font-size: 12px;
+    font-weight: 600;
+    color: #475569;
+    font-style: italic;
+  }
+
+  .controls {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 10px;
+    flex-shrink: 0;
+  }
+
+  .nav-btn {
+    height: 50px;
+    border: 1.5px solid rgba(255, 255, 255, 0.92);
+    border-radius: 18px;
+    background: var(--glass-strong);
+    color: var(--text-main);
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    box-shadow: 0 8px 20px rgba(109, 40, 217, 0.1);
+  }
+
+  .nav-btn:active {
+    transform: scale(0.96);
+  }
+
+  .nav-btn.primary-next {
+    background: var(--grad-primary);
+    color: #ffffff;
+    border: none;
+    box-shadow: var(--shadow-glow);
+  }
+
+  .nav-btn.shuffle-btn {
+    width: 52px;
+    font-size: 18px;
+  }
+
+  .test-view {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    gap: 10px;
+  }
+
+  .test-view.active {
+    display: flex;
+  }
+
+  .cards-view {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    gap: 10px;
+  }
+
+  .cards-view.hidden {
+    display: none;
+  }
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    flex-shrink: 0;
+  }
+
+  .stat-pill {
+    background: var(--glass-strong);
+    border: 1.5px solid var(--glass-border);
+    border-radius: 16px;
+    padding: 8px 10px;
+    text-align: center;
+    box-shadow: 0 6px 16px rgba(109, 40, 217, 0.08);
+  }
+
+  .stat-pill .s-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+  }
+
+  .stat-pill .s-val {
+    font-size: 17px;
+    font-weight: 800;
+    color: var(--text-main);
+  }
+
+  .quiz-card {
+    flex: 1;
+    min-height: 0;
+    max-height: 450px;
+    background: var(--glass);
+    border: 2px solid var(--glass-border);
+    border-radius: 30px;
+    box-shadow: var(--shadow-soft);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  .quiz-prompt {
+    font-size: 13px;
+    font-weight: 700;
+    color: #7c3aed;
+    background: rgba(139, 92, 246, 0.12);
+    padding: 5px 14px;
+    border-radius: 999px;
+  }
+
+  .quiz-icon {
+    width: 120px;
+    height: 88px;
+    border-radius: 18px;
+    padding: 8px;
+    background: linear-gradient(145deg, #ffffff 0%, #f5f3ff 100%);
+    box-shadow: 0 10px 24px rgba(109, 40, 217, 0.14);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .quiz-clue {
+    font-size: clamp(16px, 4.4vw, 20px);
+    font-weight: 800;
+    color: var(--text-main);
+    text-align: center;
+    line-height: 1.25;
+  }
+
+  .quiz-subclue {
+    font-size: 14px;
+    font-weight: 700;
+    color: #7c3aed;
+  }
+
+  .input-group {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .quiz-input {
+    width: 100%;
+    height: 50px;
+    border-radius: 16px;
+    border: 2px solid rgba(139, 92, 246, 0.25);
+    background: #ffffff;
+    padding: 0 16px;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-main);
+    text-align: center;
+    outline: none;
+  }
+
+  .quiz-input:focus {
+    border-color: #8b5cf6;
+    box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.16);
+  }
+
+  .quiz-feedback {
+    min-height: 26px;
+    font-size: 14px;
+    font-weight: 700;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+
+  .quiz-feedback.correct { color: #059669; }
+  .quiz-feedback.wrong { color: #e11d48; }
+
+  .quiz-action-btn {
+    width: 100%;
+    height: 50px;
+    border: none;
+    border-radius: 18px;
+    background: var(--grad-secondary);
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: var(--shadow-glow);
+  }
+
+  .quiz-action-btn:active {
+    transform: scale(0.97);
+  }
+</style>
+</head>
+<body>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+
+  <main class="app">
+    <header class="header">
+      <div class="brand-row">
+        <div class="brand-badge">📐 <span class="grad">SAT Math Passport</span> • 65 Terms</div>
+      </div>
+
+      <nav class="mode-switcher" aria-label="Study Mode">
+        <button id="tabCards" class="mode-btn active" type="button">
+          <span>🃏</span>
+          <span>Flashcards</span>
+        </button>
+        <button id="tabTest" class="mode-btn" type="button">
+          <span>✍️</span>
+          <span>Test Mode</span>
+        </button>
+      </nav>
+    </header>
+
+    <section id="cardsView" class="cards-view">
+      <div class="progress-wrap">
+        <div class="progress-track">
+          <div id="progressFill" class="progress-fill"></div>
+        </div>
+        <div id="progressText" class="progress-pill">1 / 65</div>
+      </div>
+
+      <div class="stage">
+        <div id="cardScene" class="scene">
+          <div id="flashcard" class="card">
+            <div class="card-face card-front">
+              <div class="card-top-bar">
+                <span id="frontCategory" class="pill-tag">OPERATIONS</span>
+                <span id="frontShort" class="iso-tag">+</span>
+              </div>
+
+              <div id="frontIconWrap" class="icon-frame"></div>
+
+              <h1 id="frontTerm" class="term-title">Addition / Sum</h1>
+
+              <div id="frontFormula" class="formula-badge">a + b</div>
+
+              <div class="tap-hint">👆 Tap card to flip &amp; hear</div>
+            </div>
+            <div class="card-face card-back">
+              <div class="card-top-bar">
+                <div class="mini-topic">
+                  <div id="backMiniIcon" class="mini-icon-box"></div>
+                  <span id="backTerm">Addition / Sum</span>
+                </div>
+                <button id="listenBtn" class="listen-btn" type="button">🔊 Listen</button>
+              </div>
+
+              <div class="back-center">
+                <span class="label-small">Meaning &amp; SAT Usage</span>
+                <div id="backMeaning" class="meaning-text">Adding two numbers together</div>
+
+                <div class="formula-box">
+                  <div class="f-label">Formula / Example</div>
+                  <div id="backFormula" class="f-value">a + b</div>
+                </div>
+
+                <div id="backAloud" class="read-aloud">"a plus b equals the sum"</div>
+              </div>
+
+              <div class="tap-hint">👈 Swipe for next • Tap to flip back</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="controls">
+        <button id="prevBtn" class="nav-btn" type="button">← Prev</button>
+        <button id="shuffleBtn" class="nav-btn shuffle-btn" type="button" title="Shuffle Deck">🔀</button>
+        <button id="nextBtn" class="nav-btn primary-next" type="button">Next →</button>
+      </div>
+    </section>
+
+    <section id="testView" class="test-view">
+      <div class="stats-row">
+        <div class="stat-pill">
+          <div class="s-label">Question</div>
+          <div id="qNum" class="s-val">1 / 65</div>
+        </div>
+        <div class="stat-pill">
+          <div class="s-label">Score</div>
+          <div id="qScore" class="s-val">0</div>
+        </div>
+        <div class="stat-pill">
+          <div class="s-label">Streak</div>
+          <div id="qStreak" class="s-val">0 🔥</div>
+        </div>
+      </div>
+      <div class="quiz-card">
+        <span class="quiz-prompt">Write the English math term</span>
+
+        <div id="quizIconWrap" class="quiz-icon"></div>
+
+        <div id="quizClue" class="quiz-clue">Adding two numbers together</div>
+        <div id="quizSubclue" class="quiz-subclue">a + b</div>
+
+        <div class="input-group">
+          <input
+            id="quizInput"
+            class="quiz-input"
+            type="text"
+            placeholder="Type English math term..."
+            autocomplete="off"
+            autocapitalize="words"
+            spellcheck="false"
+          />
+          <div id="quizFeedback" class="quiz-feedback"></div>
+        </div>
+
+        <button id="quizSubmitBtn" class="quiz-action-btn" type="button">Check Answer</button>
+      </div>
+    </section>
+  </main>
+
+<script>
+  const MATH_TERMS = [
+    // 1. Operations & Numbers
+    { term: "Addition / Sum", speak: "Addition. Sum.", short: "+", cat: "Numbers", icon: "add", formula: "a + b", meaning: "Adding two numbers together; result is the sum", aloud: "Read: a plus b", accept: ["addition", "sum"] },
+    { term: "Subtraction / Difference", speak: "Subtraction. Difference.", short: "−", cat: "Numbers", icon: "sub", formula: "a − b", meaning: "Taking one number away; result is the difference", aloud: "Read: a minus b", accept: ["subtraction", "difference"] },
+    { term: "Multiplication / Product", speak: "Multiplication. Product.", short: "×", cat: "Numbers", icon: "mul", formula: "a × b = ab", meaning: "Multiplying numbers; result is the product", aloud: "Read: a times b", accept: ["multiplication", "product"] },
+    { term: "Division / Quotient", speak: "Division. Quotient.", short: "÷", cat: "Numbers", icon: "div", formula: "a ÷ b = a/b", meaning: "Dividing numbers; result is the quotient (+ remainder)", aloud: "Read: a divided by b", accept: ["division", "quotient"] },
+    { term: "Fraction", speak: "Fraction", short: "a/b", cat: "Numbers", icon: "frac", formula: "Numerator / Denominator", meaning: "Top number = numerator; bottom number = denominator", aloud: "Read 3/4: three fourths", accept: ["fraction"] },
+    { term: "Numerator", speak: "Numerator", short: "TOP", cat: "Numbers", icon: "num", formula: "a in a/b", meaning: "The top number of a fraction", aloud: "Parts you have", accept: ["numerator"] },
+    { term: "Denominator", speak: "Denominator", short: "BOT", cat: "Numbers", icon: "den", formula: "b in a/b (b ≠ 0)", meaning: "The bottom number of a fraction", aloud: "Total equal parts", accept: ["denominator"] },
+    { term: "Decimal", speak: "Decimal", short: "0.75", cat: "Numbers", icon: "dec", formula: "0.75 = 75/100", meaning: "A number written with a decimal point", aloud: "Read 0.75: zero point seven five", accept: ["decimal"] },
+    { term: "Integer", speak: "Integer", short: "ℤ", cat: "Numbers", icon: "int", formula: "..., −2, −1, 0, 1, 2, ...", meaning: "Whole numbers: positive, negative, or zero", aloud: "No fractions or decimals", accept: ["integer", "integers"] },
+    { term: "Even / Odd Number", speak: "Even number. Odd number.", short: "2n", cat: "Numbers", icon: "even", formula: "Even: 2, 4, 6 | Odd: 1, 3, 5", meaning: "Divisible by 2 (even) vs. not divisible by 2 (odd)", aloud: "0 is an even integer", accept: ["even", "odd", "even number", "odd number", "even / odd number"] },
+    { term: "Prime Number", speak: "Prime number", short: "P", cat: "Numbers", icon: "prime", formula: "2, 3, 5, 7, 11, 13...", meaning: "Integer > 1 divisible only by 1 and itself", aloud: "2 is the only even prime", accept: ["prime", "prime number"] },
+    { term: "Factor / Divisor", speak: "Factor. Divisor.", short: "12÷3", cat: "Numbers", icon: "factor", formula: "Factors of 12: 1, 2, 3, 4, 6, 12", meaning: "Numbers that divide evenly into another number", aloud: "3 is a factor of 12", accept: ["factor", "divisor", "factors"] },
+    { term: "Multiple", speak: "Multiple", short: "4n", cat: "Numbers", icon: "mult", formula: "Multiples of 4: 4, 8, 12, 16", meaning: "Result of multiplying a number by an integer", aloud: "12 is a multiple of 4", accept: ["multiple", "multiples"] },
+    { term: "Ratio / Proportion", speak: "Ratio. Proportion.", short: "a:b", cat: "Numbers", icon: "ratio", formula: "3:5  or  3/5 = x/10", meaning: "Comparison of two quantities; equation of two ratios", aloud: "Read 3:5: three to five", accept: ["ratio", "proportion", "ratio / proportion"] },
+    { term: "Percentage", speak: "Percentage", short: "%", cat: "Numbers", icon: "pct", formula: "25% = 0.25 = 25/100", meaning: "Parts per hundred (percent increase / decrease)", aloud: "Read: twenty-five percent", accept: ["percent", "percentage"] },
+    { term: "Absolute Value", speak: "Absolute value", short: "|x|", cat: "Numbers", icon: "abs", formula: "|−5| = 5", meaning: "Distance from zero on a number line (always ≥ 0)", aloud: "Read: absolute value of x", accept: ["absolute value"] },
+    // 2. Algebra & Functions
+    { term: "Variable", speak: "Variable", short: "x, y", cat: "Algebra", icon: "var", formula: "x, y, t, n", meaning: "A symbol or letter representing an unknown number", aloud: "Solve for the variable x", accept: ["variable", "variables"] },
+    { term: "Constant", speak: "Constant", short: "c, π", cat: "Algebra", icon: "const", formula: "5, −3, π, e", meaning: "A fixed number whose value does not change", aloud: "In 2x + 5, 5 is the constant", accept: ["constant", "constants"] },
+    { term: "Coefficient", speak: "Coefficient", short: "7x²", cat: "Algebra", icon: "coeff", formula: "In 7x², coefficient = 7", meaning: "The number multiplied in front of a variable", aloud: "Leading coefficient", accept: ["coefficient", "coefficients"] },
+    { term: "Expression", speak: "Expression", short: "3x+2", cat: "Algebra", icon: "expr", formula: "3x + 2 (no = sign)", meaning: "Combination of numbers, variables, and operations (no equals sign)", aloud: "Simplify the expression", accept: ["expression", "expressions"] },
+    { term: "Equation", speak: "Equation", short: "=", cat: "Algebra", icon: "eq", formula: "3x + 2 = 11", meaning: "Mathematical statement showing two expressions are equal", aloud: "Solve the equation", accept: ["equation", "equations"] },
+    { term: "Inequality", speak: "Inequality", short: "≤ ≥", cat: "Algebra", icon: "ineq", formula: "x > 5,  x ≤ −2", meaning: "Compares values using >, <, ≥ (greater/equal), ≤ (less/equal)", aloud: "Flip sign when multiplying by −1", accept: ["inequality", "inequalities"] },
+    { term: "Function f(x)", speak: "Function f of x", short: "f(x)", cat: "Algebra", icon: "func", formula: "f(x) = 2x + 3", meaning: "Rule assigning each input x to exactly one output y", aloud: "Read: f of x equals two x plus three", accept: ["function", "function f(x)", "f(x)"] },
+    { term: "Linear Equation", speak: "Linear equation", short: "mx+b", cat: "Algebra", icon: "linear", formula: "y = mx + b", meaning: "Equation of a straight line (slope-intercept form)", aloud: "m = slope, b = y-intercept", accept: ["linear equation", "linear"] },
+    { term: "Slope / Gradient", speak: "Slope. Gradient.", short: "m", cat: "Algebra", icon: "slope", formula: "m = (y₂ − y₁) / (x₂ − x₁)", meaning: "Steepness of a line (rise over run)", aloud: "Positive, negative, zero, or undefined", accept: ["slope", "gradient", "slope / gradient"] },
+    { term: "x-intercept & y-intercept", speak: "x-intercept and y-intercept", short: "(0,b)", cat: "Algebra", icon: "inter", formula: "x-int: (a, 0) | y-int: (0, b)", meaning: "Points where a graph crosses the x-axis or y-axis", aloud: "Set y = 0 for x-intercept", accept: ["intercept", "intercepts", "x-intercept", "y-intercept", "x-intercept & y-intercept"] },
+    { term: "System of Equations", speak: "System of equations", short: "{ }", cat: "Algebra", icon: "sys", formula: "{ 2x + y = 7 ; x − y = 2 }", meaning: "Two or more equations solved together (substitution / elimination)", aloud: "Intersection point is the solution", accept: ["system of equations", "system"] },
+    { term: "Domain & Range", speak: "Domain and range", short: "x → y", cat: "Algebra", icon: "dom", formula: "Domain: all x | Range: all y", meaning: "All valid input values (x) and all possible output values (y)", aloud: "Domain = inputs, Range = outputs", accept: ["domain", "range", "domain & range", "domain and range"] },
+    { term: "Parallel Lines", speak: "Parallel lines", short: "∥", cat: "Algebra", icon: "para", formula: "m₁ = m₂ (same slope)", meaning: "Lines in the same plane that never intersect", aloud: "Equal slopes, no solution", accept: ["parallel", "parallel lines"] },
+    { term: "Perpendicular Lines", speak: "Perpendicular lines", short: "⊥", cat: "Algebra", icon: "perp", formula: "m₁ · m₂ = −1", meaning: "Lines that intersect at a 90° right angle", aloud: "Negative reciprocal slopes", accept: ["perpendicular", "perpendicular lines"] },
+
+    // 3. Advanced Math
+    { term: "Exponent / Power", speak: "Exponent. Power.", short: "xⁿ", cat: "Advanced", icon: "exp", formula: "x² (squared), x³ (cubed)", meaning: "Indicates how many times a base is multiplied by itself", aloud: "x to the nth power", accept: ["exponent", "power", "exponent / power"] },
+    { term: "Square Root / Radical", speak: "Square root. Radical.", short: "√x", cat: "Advanced", icon: "sqrt", formula: "√25 = 5  |  ∛8 = 2 (cube root)", meaning: "Inverse of raising to a power; √ is the radical symbol", aloud: "Read: square root of x", accept: ["square root", "radical", "square root / radical"] },
+    { term: "Polynomial", speak: "Polynomial", short: "P(x)", cat: "Advanced", icon: "poly", formula: "ax³ + bx² + cx + d", meaning: "Expression of multiple terms with non-negative integer exponents", aloud: "Highest exponent = degree", accept: ["polynomial", "polynomials"] },
+    { term: "Quadratic Equation", speak: "Quadratic equation", short: "ax²", cat: "Advanced", icon: "quad", formula: "ax² + bx + c = 0", meaning: "Degree-2 equation whose U-shaped graph is a parabola", aloud: "Solved by factoring or quadratic formula", accept: ["quadratic equation", "quadratic"] },
+    { term: "Parabola", speak: "Parabola", short: "∪ ∩", cat: "Advanced", icon: "para_g", formula: "y = ax² + bx + c", meaning: "Symmetrical U-shaped curve of a quadratic function", aloud: "Opens up if a > 0, down if a < 0", accept: ["parabola"] },
+    { term: "Vertex", speak: "Vertex", short: "(h,k)", cat: "Advanced", icon: "vert", formula: "y = a(x − h)² + k", meaning: "Highest (maximum) or lowest (minimum) turning point of a parabola", aloud: "Vertex form shows (h, k)", accept: ["vertex"] },
+    { term: "Roots / Zeros / Solutions", speak: "Roots. Zeros. Solutions.", short: "f(x)=0", cat: "Advanced", icon: "roots", formula: "x-values where f(x) = 0", meaning: "x-intercepts of a function's graph", aloud: "All 3 words mean the same on SAT!", accept: ["roots", "zeros", "solutions", "root", "zero", "roots / zeros / solutions"] },
+    { term: "Factoring", speak: "Factoring", short: "( )( )", cat: "Advanced", icon: "fact_a", formula: "x² − 9 = (x − 3)(x + 3)", meaning: "Breaking an algebraic expression into multiplied factors", aloud: "Difference of squares", accept: ["factoring", "factor"] },
+    { term: "Discriminant", speak: "Discriminant", short: "Δ", cat: "Advanced", icon: "disc", formula: "D = b² − 4ac", meaning: "Determines number of real solutions (>0: 2, =0: 1, <0: 0)", aloud: "Part inside the quadratic formula", accept: ["discriminant"] },
+    { term: "Exponential Growth / Decay", speak: "Exponential growth and decay", short: "a(1±r)ᵗ", cat: "Advanced", icon: "exp_g", formula: "y = a(1 + r)ᵗ  or  y = a(1 − r)ᵗ", meaning: "Rapid increase or decrease by a constant percentage rate r", aloud: "a = initial value, r = rate, t = time", accept: ["exponential growth", "exponential decay", "exponential", "exponential growth / decay"] },
+    // 4. Geometry, Solids & Trigonometry
+    { term: "Acute / Right / Obtuse Angle", speak: "Acute, right, and obtuse angles", short: "∠°", cat: "Geometry", icon: "angle", formula: "Acute < 90° | Right = 90° | Obtuse > 90°", meaning: "Angle classifications based on degree measure", aloud: "Straight angle = 180°", accept: ["angle", "acute", "right angle", "obtuse", "acute / right / obtuse angle"] },
+    { term: "Complementary & Supplementary", speak: "Complementary and supplementary angles", short: "90°/180°", cat: "Geometry", icon: "comp", formula: "Comp: α + β = 90° | Supp: α + β = 180°", meaning: "Two angles adding to 90° (complementary) or 180° (supplementary)", aloud: "C comes before S -> 90 before 180", accept: ["complementary", "supplementary", "complementary & supplementary"] },
+    { term: "Equilateral / Isosceles / Scalene", speak: "Equilateral, isosceles, and scalene triangles", short: "△", cat: "Geometry", icon: "tri", formula: "3 equal | 2 equal | 0 equal sides", meaning: "Triangles classified by equal side lengths and angles", aloud: "Angles in any triangle sum to 180°", accept: ["equilateral", "isosceles", "scalene", "triangle", "equilateral / isosceles / scalene"] },
+    { term: "Hypotenuse & Legs", speak: "Hypotenuse and legs", short: "a²+b²=c²", cat: "Geometry", icon: "hyp", formula: "c² = a² + b² (Pythagorean Theorem)", meaning: "In a right triangle, hypotenuse (c) is opposite the 90° angle", aloud: "Legs a and b form the right angle", accept: ["hypotenuse", "legs", "hypotenuse & legs", "pythagorean theorem"] },
+    { term: "Congruent vs. Similar", speak: "Congruent versus similar", short: "≅  ~", cat: "Geometry", icon: "sim", formula: "Congruent (≅): same size & shape", meaning: "Congruent = identical; Similar (~) = same shape, proportional sides", aloud: "Similar triangles have equal angles", accept: ["congruent", "similar", "congruent vs similar", "congruent vs. similar"] },
+    { term: "Trapezoid", speak: "Trapezoid", short: "⏢", cat: "Geometry", icon: "trap", formula: "A = ½(b₁ + b₂)h", meaning: "Quadrilateral with at least one pair of parallel sides (bases)", aloud: "Called trapezium in British English", accept: ["trapezoid", "trapezium"] },
+    { term: "Radius & Diameter", speak: "Radius and diameter", short: "d = 2r", cat: "Geometry", icon: "rad", formula: "d = 2r  |  r = d / 2", meaning: "Radius = center to edge; Diameter = full width through center", aloud: "Diameter is twice the radius", accept: ["radius", "diameter", "radius & diameter"] },
+    { term: "Circumference", speak: "Circumference", short: "2πr", cat: "Geometry", icon: "circ", formula: "C = 2πr = πd", meaning: "The perimeter (distance around the outside) of a circle", aloud: "Circle area = πr²", accept: ["circumference"] },
+    { term: "Chord & Tangent", speak: "Chord and tangent", short: "○|", cat: "Geometry", icon: "chord", formula: "Tangent ⊥ radius at point of contact", meaning: "Chord connects 2 points on a circle; Tangent touches at 1 point", aloud: "Diameter is the longest chord", accept: ["chord", "tangent", "chord & tangent"] },
+    { term: "Arc & Sector", speak: "Arc and sector", short: "θ/360", cat: "Geometry", icon: "sect", formula: "Arc = (θ/360)·2πr | Sector = (θ/360)·πr²", meaning: "Arc = slice of circumference; Sector = 'pizza slice' area", aloud: "θ is the central angle", accept: ["arc", "sector", "arc & sector"] },
+    { term: "Cube & Rectangular Prism", speak: "Cube and rectangular prism", short: "V=lwh", cat: "Volumes", icon: "cube", formula: "Cube: V = s³ | Prism: V = l · w · h", meaning: "3D box solids; Surface Area of cube = 6s²", aloud: "l = length, w = width, h = height", accept: ["cube", "rectangular prism", "cube & rectangular prism"] },
+    { term: "Cylinder", speak: "Cylinder", short: "πr²h", cat: "Volumes", icon: "cyl", formula: "V = πr²h  |  SA = 2πr² + 2πrh", meaning: "3D solid with two parallel circular bases and height h", aloud: "Base area (πr²) times height", accept: ["cylinder"] },
+    { term: "Cone", speak: "Cone", short: "⅓πr²h", cat: "Volumes", icon: "cone", formula: "V = ⅓πr²h", meaning: "Circular base tapering smoothly to a single vertex (apex)", aloud: "One-third the volume of a cylinder", accept: ["cone"] },
+    { term: "Pyramid", speak: "Pyramid", short: "⅓Bh", cat: "Volumes", icon: "pyr", formula: "V = ⅓Bh (B = base area)", meaning: "Polygon base connected by triangular faces to an apex", aloud: "Capital B stands for Area of the Base", accept: ["pyramid"] },
+    { term: "Sphere & Hemisphere", speak: "Sphere and hemisphere", short: "4/3πr³", cat: "Volumes", icon: "sph", formula: "V = (4/3)πr³  |  SA = 4πr²", meaning: "3D ball shape; Hemisphere is half a sphere (V = ⅔πr³)", aloud: "Four-thirds pi r cubed", accept: ["sphere", "hemisphere", "sphere & hemisphere"] },
+    { term: "Sine, Cosine & Tangent", speak: "Sine, cosine, and tangent", short: "SOHCAHTOA", cat: "Trig", icon: "trig", formula: "sin = O/H | cos = A/H | tan = O/A", meaning: "Right-triangle ratios: Opposite, Adjacent, Hypotenuse", aloud: "sin(x) = cos(90° − x)", accept: ["sine", "cosine", "tangent", "trigonometry", "sohcahtoa", "sine, cosine & tangent"] },
+    { term: "Radians & Degrees", speak: "Radians and degrees", short: "π rad", cat: "Trig", icon: "rad_a", formula: "180° = π radians  |  360° = 2π", meaning: "Two units for measuring angles (multiply by π/180 for radians)", aloud: "90° equals pi over 2 radians", accept: ["radians", "degrees", "radians & degrees"] },
+    // 5. Statistics, Probability & Data (SAT + IELTS Task 1)
+    { term: "Mean (Average)", speak: "Mean. Average.", short: "x̄", cat: "Statistics", icon: "mean", formula: "Mean = (Sum of values) / n", meaning: "Arithmetic average of all numbers in a dataset", aloud: "Sum = Mean × Count", accept: ["mean", "average", "mean (average)"] },
+    { term: "Median", speak: "Median", short: "MID", cat: "Statistics", icon: "med", formula: "Middle value in ordered list", meaning: "Middle number when data is sorted from least to greatest", aloud: "If even count, average the 2 middle numbers", accept: ["median"] },
+    { term: "Mode", speak: "Mode", short: "FREQ", cat: "Statistics", icon: "mode", formula: "Most frequent value", meaning: "The number that appears most often in a dataset", aloud: "A dataset can have no mode or multiple modes", accept: ["mode"] },
+    { term: "Range (Statistics)", speak: "Range", short: "Max−Min", cat: "Statistics", icon: "rng", formula: "Range = Maximum − Minimum", meaning: "Difference between the largest and smallest values", aloud: "Measures total spread of data", accept: ["range", "range (statistics)"] },
+    { term: "Standard Deviation", speak: "Standard deviation", short: "σ", cat: "Statistics", icon: "sd", formula: "Spread around the mean", meaning: "Measures how spread out data points are from the average", aloud: "Tightly clustered = small standard deviation", accept: ["standard deviation"] },
+    { term: "Scatterplot & Line of Best Fit", speak: "Scatterplot and line of best fit", short: "↗ ↘", cat: "Statistics", icon: "scat", formula: "Positive, Negative, or No correlation", meaning: "Graph of data points with a trend line predicting values", aloud: "Also essential for IELTS Task 1 graphs!", accept: ["scatterplot", "line of best fit", "correlation", "scatterplot & line of best fit"] },
+    { term: "Probability", speak: "Probability", short: "P(A)", cat: "Statistics", icon: "prob", formula: "P = (Favorable) / (Total outcomes)", meaning: "Likelihood of an event happening (always between 0 and 1)", aloud: "0 = impossible, 1 = certain", accept: ["probability"] },
+    { term: "Fluctuate / Peak / Plateau", speak: "Fluctuate, peak, and plateau", short: "IELTS", cat: "IELTS Data", icon: "ielts", formula: "Rise sharply | Drop | Level off", meaning: "Key IELTS Task 1 verbs to describe chart trends", aloud: "Peak = highest point; Plateau = stay steady", accept: ["fluctuate", "peak", "plateau", "fluctuate / peak / plateau"] }
+  ];
+
+  // Offline Vector Math Icon Engine (Crisp SVGs, 0 ms load)
+  const svgWrap = (inner) => `<svg viewBox="0 0 80 56" role="img">${inner}</svg>`;
+  const MATH_ICONS = {
+    add: svgWrap(`<circle cx="40" cy="28" r="20" fill="#ede9fe"/><path d="M40 18v20M30 28h20" stroke="#7c3aed" stroke-width="5" stroke-linecap="round"/>`),
+    sub: svgWrap(`<circle cx="40" cy="28" r="20" fill="#fce7f3"/><path d="M30 28h20" stroke="#ec4899" stroke-width="5" stroke-linecap="round"/>`),
+    mul: svgWrap(`<circle cx="40" cy="28" r="20" fill="#e0f2fe"/><path d="M32 20l16 16M48 20L32 36" stroke="#0284c7" stroke-width="5" stroke-linecap="round"/>`),
+    div: svgWrap(`<circle cx="40" cy="28" r="20" fill="#ede9fe"/><path d="M29 28h22" stroke="#7c3aed" stroke-width="4.5" stroke-linecap="round"/><circle cx="40" cy="20" r="3" fill="#ec4899"/><circle cx="40" cy="36" r="3" fill="#ec4899"/>`),
+    frac: svgWrap(`<rect x="24" y="8" width="32" height="14" rx="4" fill="#7c3aed"/><path d="M20 28h40" stroke="#1e1b4b" stroke-width="4" stroke-linecap="round"/><rect x="24" y="34" width="32" height="14" rx="4" fill="#ec4899"/>`),
+    num: svgWrap(`<rect x="24" y="8" width="32" height="14" rx="4" fill="#ec4899"/><path d="M20 28h40" stroke="#1e1b4b" stroke-width="4" stroke-linecap="round"/><rect x="24" y="34" width="32" height="14" rx="4" fill="#e2e8f0"/>`),
+    den: svgWrap(`<rect x="24" y="8" width="32" height="14" rx="4" fill="#e2e8f0"/><path d="M20 28h40" stroke="#1e1b4b" stroke-width="4" stroke-linecap="round"/><rect x="24" y="34" width="32" height="14" rx="4" fill="#7c3aed"/>`),
+    dec: svgWrap(`<text x="40" y="36" text-anchor="middle" font-size="24" font-weight="800" fill="#1e1b4b">0<tspan fill="#ec4899">.</tspan>75</text>`),
+    int: svgWrap(`<path d="M10 32h60" stroke="#64748b" stroke-width="3"/><circle cx="22" cy="32" r="4" fill="#ec4899"/><circle cx="40" cy="32" r="4" fill="#7c3aed"/><circle cx="58" cy="32" r="4" fill="#0284c7"/><text x="22" y="22" text-anchor="middle" font-size="11" font-weight="800" fill="#1e1b4b">-1</text><text x="40" y="22" text-anchor="middle" font-size="11" font-weight="800" fill="#1e1b4b">0</text><text x="58" y="22" text-anchor="middle" font-size="11" font-weight="800" fill="#1e1b4b">+1</text>`),
+    even: svgWrap(`<rect x="14" y="14" width="22" height="28" rx="6" fill="#7c3aed"/><text x="25" y="33" text-anchor="middle" font-size="14" font-weight="800" fill="#fff">2n</text><rect x="44" y="14" width="22" height="28" rx="6" fill="#ec4899"/><text x="55" y="33" text-anchor="middle" font-size="12" font-weight="800" fill="#fff">2n+1</text>`),
+    prime: svgWrap(`<polygon points="40,6 47,20 62,22 51,33 54,48 40,41 26,48 29,33 18,22 33,20" fill="#f59e0b"/><text x="40" y="33" text-anchor="middle" font-size="14" font-weight="800" fill="#fff">7</text>`),
+    factor: svgWrap(`<circle cx="40" cy="14" r="9" fill="#7c3aed"/><text x="40" y="18" text-anchor="middle" font-size="10" font-weight="800" fill="#fff">12</text><path d="M35 22L24 35M45 22l11 13" stroke="#94a3b8" stroke-width="2.5"/><circle cx="22" cy="41" r="8" fill="#ec4899"/><text x="22" y="45" text-anchor="middle" font-size="10" font-weight="800" fill="#fff">3</text><circle cx="58" cy="41" r="8" fill="#0284c7"/><text x="58" y="45" text-anchor="middle" font-size="10" font-weight="800" fill="#fff">4</text>`),
+    mult: svgWrap(`<text x="40" y="34" text-anchor="middle" font-size="16" font-weight="800" fill="#7c3aed">4, 8, 12...</text>`),
+    ratio: svgWrap(`<circle cx="24" cy="28" r="11" fill="#7c3aed"/><circle cx="24" cy="22" r="2.5" fill="#fff"/><circle cx="24" cy="34" r="2.5" fill="#fff"/><text x="40" y="34" text-anchor="middle" font-size="22" font-weight="800" fill="#ec4899">:</text><circle cx="56" cy="28" r="11" fill="#0284c7"/>`),
+    pct: svgWrap(`<circle cx="27" cy="20" r="6" fill="none" stroke="#ec4899" stroke-width="4"/><circle cx="53" cy="36" r="6" fill="none" stroke="#7c3aed" stroke-width="4"/><path d="M52 14L28 42" stroke="#1e1b4b" stroke-width="4" stroke-linecap="round"/>`),
+    abs: svgWrap(`<path d="M22 12v32M58 12v32" stroke="#7c3aed" stroke-width="4" stroke-linecap="round"/><text x="40" y="35" text-anchor="middle" font-size="20" font-weight="800" fill="#ec4899">−5</text>`),
+    var: svgWrap(`<rect x="22" y="10" width="36" height="36" rx="10" fill="#ede9fe" stroke="#7c3aed" stroke-width="3"/><text x="40" y="36" text-anchor="middle" font-size="24" font-style="italic" font-weight="800" fill="#7c3aed">x</text>`),
+    const: svgWrap(`<rect x="22" y="10" width="36" height="36" rx="10" fill="#fce7f3"/><text x="40" y="36" text-anchor="middle" font-size="24" font-weight="800" fill="#ec4899">π</text>`),
+    coeff: svgWrap(`<text x="40" y="36" text-anchor="middle" font-size="24" font-weight="800" fill="#1e1b4b"><tspan fill="#ec4899">7</tspan>x²</text>`),
+    expr: svgWrap(`<text x="40" y="35" text-anchor="middle" font-size="20" font-weight="800" fill="#7c3aed">3x + 2</text>`),
+    eq: svgWrap(`<path d="M24 22h32M24 34h32" stroke="#ec4899" stroke-width="5" stroke-linecap="round"/>`),
+    ineq: svgWrap(`<path d="M26 16l18 10-18 10M26 42h18" stroke="#7c3aed" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>`),
+    func: svgWrap(`<rect x="14" y="14" width="52" height="28" rx="14" fill="#7c3aed"/><text x="40" y="34" text-anchor="middle" font-size="18" font-weight="800" fill="#fff">f(x)</text>`),
+    linear: svgWrap(`<path d="M16 46L64 10" stroke="#ec4899" stroke-width="4.5" stroke-linecap="round"/><path d="M14 48h52M16 8v42" stroke="#94a3b8" stroke-width="2"/>`),
+    slope: svgWrap(`<path d="M18 42L60 14" stroke="#7c3aed" stroke-width="4" stroke-linecap="round"/><path d="M26 37h24V21" stroke="#ec4899" stroke-width="2.5" stroke-dasharray="4 3" fill="none"/>`),
+    inter: svgWrap(`<path d="M12 38h56M26 8v42" stroke="#94a3b8" stroke-width="2"/><path d="M16 14l44 34" stroke="#7c3aed" stroke-width="3"/><circle cx="26" cy="22" r="4.5" fill="#ec4899"/><circle cx="47" cy="38" r="4.5" fill="#0284c7"/>`),
+    sys: svgWrap(`<path d="M16 42L64 14" stroke="#7c3aed" stroke-width="3.5"/><path d="M16 14L64 42" stroke="#0284c7" stroke-width="3.5"/><circle cx="40" cy="28" r="5" fill="#ec4899"/>`),
+    dom: svgWrap(`<rect x="10" y="16" width="20" height="24" rx="5" fill="#7c3aed"/><text x="20" y="32" text-anchor="middle" font-size="13" font-weight="800" fill="#fff">X</text><path d="M33 28h14l-4-4m4 4l-4 4" stroke="#1e1b4b" stroke-width="2.5" fill="none"/><rect x="50" y="16" width="20" height="24" rx="5" fill="#ec4899"/><text x="60" y="32" text-anchor="middle" font-size="13" font-weight="800" fill="#fff">Y</text>`),
+    para: svgWrap(`<path d="M16 40L64 12M16 48L64 20" stroke="#7c3aed" stroke-width="4" stroke-linecap="round"/>`),
+    perp: svgWrap(`<path d="M20 44h40M40 12v32" stroke="#ec4899" stroke-width="4" stroke-linecap="round"/><path d="M40 34h10v10" stroke="#7c3aed" stroke-width="2.5" fill="none"/>`),
+    exp: svgWrap(`<text x="36" y="40" text-anchor="middle" font-size="28" font-weight="800" fill="#1e1b4b">x<tspan dy="-12" font-size="16" fill="#ec4899">n</tspan></text>`),
+    sqrt: svgWrap(`<path d="M16 30l8 12 12-28h28" stroke="#7c3aed" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/><text x="48" y="38" text-anchor="middle" font-size="20" font-weight="800" fill="#ec4899">x</text>`),
+    poly: svgWrap(`<path d="M14 40 Q 26 8, 40 28 T 66 14" stroke="#7c3aed" stroke-width="4" fill="none" stroke-linecap="round"/>`),
+    quad: svgWrap(`<text x="40" y="35" text-anchor="middle" font-size="18" font-weight="800" fill="#1e1b4b"><tspan fill="#7c3aed">ax²</tspan>+bx+c</text>`),
+    para_g: svgWrap(`<path d="M18 12 Q 40 58, 62 12" stroke="#ec4899" stroke-width="4.5" fill="none" stroke-linecap="round"/>`),
+    vert: svgWrap(`<path d="M18 14 Q 40 56, 62 14" stroke="#7c3aed" stroke-width="3.5" fill="none"/><circle cx="40" cy="35" r="5" fill="#ec4899"/>`),
+    roots: svgWrap(`<path d="M12 32h56" stroke="#94a3b8" stroke-width="2"/><path d="M20 12 Q 40 56, 60 12" stroke="#7c3aed" stroke-width="3" fill="none"/><circle cx="28" cy="32" r="4.5" fill="#ec4899"/><circle cx="52" cy="32" r="4.5" fill="#ec4899"/>`),
+    fact_a: svgWrap(`<text x="40" y="35" text-anchor="middle" font-size="18" font-weight="800" fill="#7c3aed">(x−3)(x+3)</text>`),
+    disc: svgWrap(`<polygon points="40,10 62,46 18,46" fill="none" stroke="#ec4899" stroke-width="4" stroke-linejoin="round"/>`),
+    exp_g: svgWrap(`<path d="M14 44 Q 44 42, 62 10" stroke="#10b981" stroke-width="4.5" fill="none" stroke-linecap="round"/><path d="M55 12l7-2 1 7" stroke="#10b981" stroke-width="3" fill="none"/>`),
+    angle: svgWrap(`<path d="M60 42H20L52 14" stroke="#7c3aed" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="M34 42a14 14 0 0 0-4-10" stroke="#ec4899" stroke-width="3" fill="none"/>`),
+    comp: svgWrap(`<path d="M22 10v34h36M22 44l28-28" stroke="#7c3aed" stroke-width="3.5" fill="none"/><rect x="22" y="34" width="10" height="10" stroke="#ec4899" stroke-width="2" fill="none"/>`),
+    tri: svgWrap(`<polygon points="40,10 62,46 18,46" fill="#ede9fe" stroke="#7c3aed" stroke-width="3.5" stroke-linejoin="round"/>`),
+    hyp: svgWrap(`<polygon points="22,12 22,44 60,44" fill="#fce7f3" stroke="#7c3aed" stroke-width="3"/><path d="M22 12L60 44" stroke="#ec4899" stroke-width="4.5"/><rect x="22" y="36" width="8" height="8" stroke="#7c3aed" stroke-width="2" fill="none"/>`),
+    sim: svgWrap(`<polygon points="22,18 34,42 10,42" fill="#7c3aed"/><polygon points="54,10 70,42 38,42" fill="#ec4899"/>`),
+    trap: svgWrap(`<polygon points="26,14 54,14 66,42 14,42" fill="#e0f2fe" stroke="#0284c7" stroke-width="3.5" stroke-linejoin="round"/>`),
+    rad: svgWrap(`<circle cx="40" cy="28" r="19" fill="#ede9fe" stroke="#7c3aed" stroke-width="3"/><path d="M40 28h19" stroke="#ec4899" stroke-width="3.5"/><circle cx="40" cy="28" r="3" fill="#1e1b4b"/>`),
+    circ: svgWrap(`<circle cx="40" cy="28" r="19" fill="none" stroke="#ec4899" stroke-width="4.5" stroke-dasharray="6 3"/>`),
+    chord: svgWrap(`<circle cx="40" cy="28" r="18" fill="none" stroke="#7c3aed" stroke-width="3"/><path d="M24 20h32" stroke="#0284c7" stroke-width="3.5"/><path d="M58 8v40" stroke="#ec4899" stroke-width="3.5"/>`),
+    sect: svgWrap(`<circle cx="40" cy="28" r="18" fill="#ede9fe" stroke="#7c3aed" stroke-width="2.5"/><path d="M40 28L55 18A18 18 0 0 1 55 38Z" fill="#ec4899"/>`),
+    cube: svgWrap(`<rect x="22" y="20" width="26" height="26" fill="#ede9fe" stroke="#7c3aed" stroke-width="2.5"/><polygon points="22,20 32,10 58,10 48,20" fill="#ddd6fe" stroke="#7c3aed" stroke-width="2.5"/><polygon points="48,20 58,10 58,36 48,46" fill="#c4b5fd" stroke="#7c3aed" stroke-width="2.5"/>`),
+    cyl: svgWrap(`<path d="M24 14v28a16 6 0 0 0 32 0V14" fill="#fce7f3" stroke="#ec4899" stroke-width="2.5"/><ellipse cx="40" cy="14" rx="16" ry="6" fill="#fbcfe8" stroke="#ec4899" stroke-width="2.5"/>`),
+    cone: svgWrap(`<path d="M22 40L40 10l18 30" fill="#e0f2fe" stroke="#0284c7" stroke-width="2.5"/><ellipse cx="40" cy="40" rx="18" ry="6" fill="#bae6fd" stroke="#0284c7" stroke-width="2.5"/>`),
+    pyr: svgWrap(`<polygon points="40,8 18,38 42,46" fill="#ede9fe" stroke="#7c3aed" stroke-width="2.5"/><polygon points="40,8 42,46 62,36" fill="#c4b5fd" stroke="#7c3aed" stroke-width="2.5"/>`),
+    sph: svgWrap(`<circle cx="40" cy="28" r="19" fill="#fce7f3" stroke="#ec4899" stroke-width="3"/><ellipse cx="40" cy="28" rx="19" ry="6" fill="none" stroke="#ec4899" stroke-width="2" stroke-dasharray="4 3"/>`),
+    trig: svgWrap(`<polygon points="20,44 60,44 60,14" fill="#ede9fe" stroke="#7c3aed" stroke-width="3"/><text x="45" y="39" font-size="11" font-weight="800" fill="#ec4899">θ</text>`),
+    rad_a: svgWrap(`<circle cx="40" cy="28" r="18" fill="none" stroke="#0284c7" stroke-width="3"/><text x="40" y="33" text-anchor="middle" font-size="14" font-weight="800" fill="#1e1b4b">π rad</text>`),
+    mean: svgWrap(`<rect x="18" y="30" width="10" height="16" fill="#c4b5fd"/><rect x="35" y="16" width="10" height="30" fill="#7c3aed"/><rect x="52" y="24" width="10" height="22" fill="#c4b5fd"/><path d="M12 25h56" stroke="#ec4899" stroke-width="3" stroke-dasharray="4 3"/>`),
+    med: svgWrap(`<rect x="14" y="24" width="10" height="22" rx="2" fill="#cbd5e1"/><rect x="28" y="20" width="10" height="26" rx="2" fill="#cbd5e1"/><rect x="42" y="14" width="10" height="32" rx="2" fill="#ec4899"/><rect x="56" y="10" width="10" height="36" rx="2" fill="#cbd5e1"/>`),
+    mode: svgWrap(`<rect x="16" y="28" width="12" height="18" fill="#cbd5e1"/><rect x="34" y="10" width="12" height="36" fill="#7c3aed"/><rect x="52" y="28" width="12" height="18" fill="#cbd5e1"/>`),
+    rng: svgWrap(`<path d="M16 28h48" stroke="#ec4899" stroke-width="4"/><circle cx="16" cy="28" r="5" fill="#7c3aed"/><circle cx="64" cy="28" r="5" fill="#7c3aed"/>`),
+    sd: svgWrap(`<path d="M10 44 C 24 44, 28 12, 40 12 C 52 12, 56 44, 70 44" stroke="#7c3aed" stroke-width="3.5" fill="#ede9fe"/><path d="M40 12v32" stroke="#ec4899" stroke-width="2.5" stroke-dasharray="3 3"/>`),
+    scat: svgWrap(`<circle cx="20" cy="40" r="3.5" fill="#7c3aed"/><circle cx="30" cy="30" r="3.5" fill="#7c3aed"/><circle cx="42" cy="28" r="3.5" fill="#7c3aed"/><circle cx="52" cy="18" r="3.5" fill="#7c3aed"/><circle cx="62" cy="14" r="3.5" fill="#7c3aed"/><path d="M16 42L64 12" stroke="#ec4899" stroke-width="3"/>`),
+    prob: svgWrap(`<rect x="22" y="10" width="36" height="36" rx="8" fill="#fff" stroke="#7c3aed" stroke-width="3"/><circle cx="32" cy="20" r="3" fill="#ec4899"/><circle cx="48" cy="20" r="3" fill="#ec4899"/><circle cx="40" cy="28" r="3" fill="#ec4899"/><circle cx="32" cy="36" r="3" fill="#ec4899"/><circle cx="48" cy="36" r="3" fill="#ec4899"/>`),
+    ielts: svgWrap(`<path d="M14 40 L28 22 L40 32 L54 12 L66 12" stroke="#ec4899" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>`)
+  };
+
+  function renderIconInto(container, iconKey) {
+    container.innerHTML = MATH_ICONS[iconKey] || MATH_ICONS.add;
+  }
+
+  // Audio: British English (en-GB, rate 0.92)
+  function speakWord(text) {
+    if (!('speechSynthesis' in window)) return;
+    window.speechSynthesis.cancel();
+    const utter = new SpeechSynthesisUtterance(text);
+    utter.lang = 'en-GB';
+    utter.rate = 0.92;
+    const voices = window.speechSynthesis.getVoices();
+    const gbVoice = voices.find(v => v.lang === 'en-GB' || v.lang.startsWith('en-GB'));
+    if (gbVoice) utter.voice = gbVoice;
+    window.speechSynthesis.speak(utter);
+  }
+
+  if ('speechSynthesis' in window) {
+    window.speechSynthesis.onvoiceschanged = () => window.speechSynthesis.getVoices();
+  }
+
+  // State
+  let deck = [...MATH_TERMS];
+  let currentIndex = 0;
+  let isFlipped = false;
+
+  // DOM Refs
+  const tabCards = document.getElementById('tabCards');
+  const tabTest = document.getElementById('tabTest');
+  const cardsView = document.getElementById('cardsView');
+  const testView = document.getElementById('testView');
+
+  const flashcard = document.getElementById('flashcard');
+  const cardScene = document.getElementById('cardScene');
+  const frontCategory = document.getElementById('frontCategory');
+  const frontShort = document.getElementById('frontShort');
+  const frontIconWrap = document.getElementById('frontIconWrap');
+  const frontTerm = document.getElementById('frontTerm');
+  const frontFormula = document.getElementById('frontFormula');
+  const backMiniIcon = document.getElementById('backMiniIcon');
+  const backTerm = document.getElementById('backTerm');
+  const backMeaning = document.getElementById('backMeaning');
+  const backFormula = document.getElementById('backFormula');
+  const backAloud = document.getElementById('backAloud');
+  const listenBtn = document.getElementById('listenBtn');
+  const progressFill = document.getElementById('progressFill');
+  const progressText = document.getElementById('progressText');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const shuffleBtn = document.getElementById('shuffleBtn');
+
+  function updateCard() {
+    const item = deck[currentIndex];
+    isFlipped = false;
+    flashcard.classList.remove('flipped');
+
+    frontCategory.textContent = item.cat;
+    frontShort.textContent = item.short;
+    frontTerm.textContent = item.term;
+    frontFormula.textContent = item.formula;
+    renderIconInto(frontIconWrap, item.icon);
+
+    renderIconInto(backMiniIcon, item.icon);
+    backTerm.textContent = item.term;
+    backMeaning.textContent = item.meaning;
+    backFormula.textContent = item.formula;
+    backAloud.textContent = item.aloud;
+
+    const pct = ((currentIndex + 1) / deck.length) * 100;
+    progressFill.style.width = `${pct}%`;
+    progressText.textContent = `${currentIndex + 1} / ${deck.length}`;
+  }
+
+  function flipCard() {
+    isFlipped = !isFlipped;
+    flashcard.classList.toggle('flipped', isFlipped);
+    if (isFlipped) {
+      speakWord(deck[currentIndex].speak);
+    }
+  }
+
+  function nextCard() {
+    currentIndex = (currentIndex + 1) % deck.length;
+    updateCard();
+  }
+
+  function prevCard() {
+    currentIndex = (currentIndex - 1 + deck.length) % deck.length;
+    updateCard();
+  }
+
+  function shuffleDeck() {
+    for (let i = deck.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [deck[i], deck[j]] = [deck[j], deck[i]];
+    }
+    currentIndex = 0;
+    updateCard();
+  }
+  cardScene.addEventListener('click', (e) => {
+    if (e.target.closest('#listenBtn')) return;
+    flipCard();
+  });
+
+  listenBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    speakWord(deck[currentIndex].speak);
+  });
+
+  prevBtn.addEventListener('click', prevCard);
+  nextBtn.addEventListener('click', nextCard);
+  shuffleBtn.addEventListener('click', shuffleDeck);
+
+  // Mobile Touch Swipe on Card
+  let touchStartX = 0;
+  let touchStartY = 0;
+  cardScene.addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+    touchStartY = e.changedTouches[0].screenY;
+  }, { passive: true });
+
+  cardScene.addEventListener('touchend', (e) => {
+    const dx = e.changedTouches[0].screenX - touchStartX;
+    const dy = e.changedTouches[0].screenY - touchStartY;
+    if (Math.abs(dx) > 48 && Math.abs(dx) > Math.abs(dy)) {
+      if (dx < 0) nextCard();
+      else prevCard();
+    }
+  }, { passive: true });
+
+  // Test Mode Logic
+  let quizList = [];
+  let quizIdx = 0;
+  let score = 0;
+  let streak = 0;
+  let answered = false;
+
+  const qNum = document.getElementById('qNum');
+  const qScore = document.getElementById('qScore');
+  const qStreak = document.getElementById('qStreak');
+  const quizIconWrap = document.getElementById('quizIconWrap');
+  const quizClue = document.getElementById('quizClue');
+  const quizSubclue = document.getElementById('quizSubclue');
+  const quizInput = document.getElementById('quizInput');
+  const quizFeedback = document.getElementById('quizFeedback');
+  const quizSubmitBtn = document.getElementById('quizSubmitBtn');
+  function startQuiz() {
+    quizList = [...MATH_TERMS].sort(() => Math.random() - 0.5);
+    quizIdx = 0;
+    score = 0;
+    streak = 0;
+    loadQuizQuestion();
+  }
+
+  function loadQuizQuestion() {
+    answered = false;
+    const item = quizList[quizIdx];
+    qNum.textContent = `${quizIdx + 1} / ${quizList.length}`;
+    qScore.textContent = score;
+    qStreak.textContent = `${streak} 🔥`;
+    renderIconInto(quizIconWrap, item.icon);
+    quizClue.textContent = item.meaning;
+    quizSubclue.textContent = item.formula;
+    quizInput.value = '';
+    quizInput.disabled = false;
+    quizFeedback.textContent = '';
+    quizFeedback.className = 'quiz-feedback';
+    quizSubmitBtn.textContent = 'Check Answer';
+  }
+
+  function handleQuizAction() {
+    if (!answered) {
+      const userVal = quizInput.value.trim().toLowerCase();
+      if (!userVal) {
+        quizInput.focus();
+        return;
+      }
+      answered = true;
+      quizInput.disabled = true;
+      const item = quizList[quizIdx];
+      const isRight = item.accept.includes(userVal);
+
+      if (isRight) {
+        score++;
+        streak++;
+        quizFeedback.textContent = `✨ Correct! ${item.term}`;
+        quizFeedback.className = 'quiz-feedback correct';
+      } else {
+        streak = 0;
+        quizFeedback.textContent = `❌ Answer: ${item.term}`;
+        quizFeedback.className = 'quiz-feedback wrong';
+      }
+
+      qScore.textContent = score;
+      qStreak.textContent = `${streak} 🔥`;
+      speakWord(item.speak);
+      quizSubmitBtn.textContent = quizIdx + 1 < quizList.length ? 'Next Question →' : 'Restart Quiz 🔄';
+    } else {
+      if (quizIdx + 1 < quizList.length) {
+        quizIdx++;
+        loadQuizQuestion();
+        quizInput.focus();
+      } else {
+        startQuiz();
+      }
+    }
+  }
+
+  quizSubmitBtn.addEventListener('click', handleQuizAction);
+  quizInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') handleQuizAction();
+  });
+
+  // Tab Switching
+  tabCards.addEventListener('click', () => {
+    tabCards.classList.add('active');
+    tabTest.classList.remove('active');
+    cardsView.classList.remove('hidden');
+    testView.classList.remove('active');
+  });
+
+  tabTest.addEventListener('click', () => {
+    tabTest.classList.add('active');
+    tabCards.classList.remove('active');
+    cardsView.classList.add('hidden');
+    testView.classList.add('active');
+    if (quizList.length === 0) startQuiz();
+  });
+
+  // Keyboard Shortcuts
+  document.addEventListener('keydown', (e) => {
+    if (testView.classList.contains('active')) return;
+    if (e.code === 'Space') {
+      e.preventDefault();
+      flipCard();
+    } else if (e.code === 'ArrowRight') {
+      nextCard();
+    } else if (e.code === 'ArrowLeft') {
+      prevCard();
+    } else if (e.key.toLowerCase() === 'r') {
+      speakWord(deck[currentIndex].speak);
+    }
+  });
+
+  // Initialize
+  updateCard();
+</script>
+</body>
+</html>
