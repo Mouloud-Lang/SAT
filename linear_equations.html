@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<title>Digital SAT Math Practice Exam — Modules 1 & 2</title>
+<style>
+  :root {
+    --bg: #f4f6fb;
+    --card: #ffffff;
+    --primary: #2563eb;
+    --primary-dark: #1d4ed8;
+    --accent: #7c3aed;
+    --text: #0f172a;
+    --muted: #64748b;
+    --border: #e2e8f0;
+    --green: #059669;
+    --red: #dc2626;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Bluebook-style Top Bar */
+  .topbar {
+    background: #1e293b;
+    color: #fff;
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+  }
+
+  .exam-title {
+    font-weight: 800;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .module-pill {
+    background: #3b82f6;
+    font-size: 12px;
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-weight: 700;
+  }
+
+  .timer-box {
+    font-variant-numeric: tabular-nums;
+    font-size: 18px;
+    font-weight: 800;
+    background: rgba(255,255,255,0.12);
+    padding: 5px 14px;
+    border-radius: 10px;
+    letter-spacing: 0.04em;
+  }
+
+  .top-actions {
+    display: flex;
+    gap: 8px;
+  }
+
+  .top-btn {
+    background: rgba(255,255,255,0.14);
+    border: 1px solid rgba(255,255,255,0.25);
+    color: #fff;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .top-btn:hover { background: rgba(255,255,255,0.24); }
+  .top-btn.submit-mod { background: #10b981; border-color: #10b981; }
+
+  /* Main Layout */
+  .container {
+    flex: 1;
+    max-width: 780px;
+    width: 100%;
+    margin: 20px auto;
+    padding: 0 16px 80px;
+  }
+  .q-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 24px;
+    box-shadow: 0 10px 28px rgba(15, 23, 42, 0.06);
+  }
+
+  .q-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 2px solid var(--bg);
+    padding-bottom: 12px;
+    margin-bottom: 18px;
+  }
+
+  .q-num-badge {
+    background: #eff6ff;
+    color: var(--primary);
+    font-weight: 800;
+    font-size: 14px;
+    padding: 5px 12px;
+    border-radius: 8px;
+  }
+
+  .flag-btn {
+    background: none;
+    border: 1px solid var(--border);
+    padding: 5px 12px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--muted);
+    cursor: pointer;
+  }
+
+  .flag-btn.flagged {
+    background: #fef3c7;
+    border-color: #f59e0b;
+    color: #b45309;
+  }
+
+  .math-box {
+    background: #f8fafc;
+    border-left: 4px solid var(--primary);
+    padding: 12px 16px;
+    font-size: 19px;
+    font-weight: 800;
+    color: var(--text);
+    margin-bottom: 14px;
+    border-radius: 0 10px 10px 0;
+    font-family: 'Cambria Math', 'Times New Roman', serif;
+  }
+
+  .q-text {
+    font-size: 16.5px;
+    line-height: 1.55;
+    margin-bottom: 20px;
+    color: #1e293b;
+  }
+
+  /* Multiple Choice Options */
+  .options-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .opt-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 13px 16px;
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    background: #fff;
+  }
+
+  .opt-item:hover { border-color: #93c5fd; background: #f8fafc; }
+  .opt-item.selected { border-color: var(--primary); background: #eff6ff; }
+  .opt-item.correct-ans { border-color: var(--green); background: #ecfdf5; }
+  .opt-item.wrong-ans { border-color: var(--red); background: #fef2f2; }
+
+  .opt-letter {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 2px solid #cbd5e1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+  .opt-item.selected .opt-letter {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: #fff;
+  }
+
+  /* Student-Produced Response (Grid-In) */
+  .spr-box {
+    background: #f8fafc;
+    border: 2px dashed #94a3b8;
+    border-radius: 14px;
+    padding: 18px;
+  }
+
+  .spr-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--muted);
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  .spr-input {
+    width: 100%;
+    max-width: 240px;
+    height: 46px;
+    border: 2px solid #cbd5e1;
+    border-radius: 10px;
+    padding: 0 14px;
+    font-size: 18px;
+    font-weight: 800;
+    outline: none;
+  }
+
+  .spr-input:focus { border-color: var(--primary); }
+
+  /* Explanation Box (Review Mode) */
+  .exp-box {
+    margin-top: 18px;
+    background: #f0fdf4;
+    border: 1.5px solid #86efac;
+    border-radius: 12px;
+    padding: 14px 16px;
+    font-size: 14.5px;
+    line-height: 1.5;
+    display: none;
+  }
+  .exp-box.show { display: block; }
+
+  /* Bottom Navigation Bar */
+  .bottombar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #fff;
+    border-top: 1px solid var(--border);
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 20;
+  }
+
+  .nav-btn {
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: #fff;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+  }
+
+  .nav-btn.primary {
+    background: var(--primary);
+    color: #fff;
+    border-color: var(--primary);
+  }
+
+  .grid-trigger {
+    background: #1e293b;
+    color: #fff;
+    padding: 9px 16px;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 13px;
+    border: none;
+    cursor: pointer;
+  }
+  /* Modals (Question Grid & Calculator) */
+  .modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.55);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 50;
+    padding: 16px;
+  }
+
+  .modal-backdrop.open { display: flex; }
+
+  .modal-box {
+    background: #fff;
+    border-radius: 18px;
+    padding: 20px;
+    max-width: 420px;
+    width: 100%;
+    box-shadow: 0 20px 45px rgba(0,0,0,0.2);
+  }
+
+  .q-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
+    margin: 16px 0;
+  }
+
+  .grid-cell {
+    height: 40px;
+    border-radius: 8px;
+    border: 1.5px solid var(--border);
+    background: #fff;
+    font-weight: 800;
+    cursor: pointer;
+    position: relative;
+  }
+
+  .grid-cell.answered { background: #dbeafe; border-color: #3b82f6; color: #1d4ed8; }
+  .grid-cell.current { outline: 2.5px solid #0f172a; }
+  .grid-cell.flagged::after {
+    content: "⚑";
+    position: absolute;
+    top: -4px;
+    right: 2px;
+    font-size: 11px;
+    color: #d97706;
+  }
+  /* Built-in Calculator */
+  .calc-display {
+    width: 100%;
+    height: 48px;
+    background: #f1f5f9;
+    border-radius: 10px;
+    padding: 0 12px;
+    font-size: 20px;
+    font-weight: 800;
+    text-align: right;
+    border: 1px solid var(--border);
+    margin-bottom: 10px;
+  }
+
+  .calc-keys {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+  }
+
+  .calc-key {
+    height: 44px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: #f8fafc;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .calc-key.op { background: #eff6ff; color: var(--primary); }
+  .calc-key.eq { background: var(--primary); color: #fff; }
+
+  /* Score Summary Banner */
+  .score-banner {
+    background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+    color: #fff;
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 18px;
+    display: none;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .score-banner.show { display: flex; }
+</style>
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="exam-title">
+      <span>Digital SAT Math</span>
+      <span id="modBadge" class="module-pill">Module 1 of 2</span>
+    </div>
+
+    <div id="timerDisplay" class="timer-box">35:00</div>
+
+    <div class="top-actions">
+      <button id="openCalcBtn" class="top-btn" type="button">🧮 Calc</button>
+      <button id="submitBtn" class="top-btn submit-mod" type="button">Submit Module</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <div id="scoreBanner" class="score-banner">
+      <div>
+        <div style="font-size:13px;opacity:0.85;font-weight:700;">MODULE COMPLETE</div>
+        <div id="scoreTitle" style="font-size:24px;font-weight:800;">Score: 0 / 20</div>
+        <div id="scaledEst" style="font-size:14px;margin-top:4px;">Estimated SAT Math Pace: —</div>
+      </div>
+      <div style="display:flex;gap:8px;">
+        <button id="nextModBtn" class="nav-btn primary" type="button">Start Module 2 →</button>
+        <button id="retryModBtn" class="nav-btn" type="button">Retry</button>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-header">
+        <span id="qBadge" class="q-num-badge">Question 1 of 20</span>
+        <button id="flagBtn" class="flag-btn" type="button">⚑ Mark for Review</button>
+      </div>
+
+      <div id="mathBox" class="math-box"></div>
+      <div id="qText" class="q-text"></div>
+
+      <div id="optionsList" class="options-list"></div>
+
+      <div id="sprBox" class="spr-box" style="display:none;">
+        <label class="spr-label" for="sprInput">Student-Produced Response (enter exact number or fraction):</label>
+        <input id="sprInput" class="spr-input" type="text" placeholder="Type answer..." autocomplete="off" />
+      </div>
+
+      <div id="expBox" class="exp-box"></div>
+    </div>
+  </main>
+  <footer class="bottombar">
+    <button id="prevBtn" class="nav-btn" type="button">← Back</button>
+    <button id="openGridBtn" class="grid-trigger" type="button">Question 1 of 20 ▲</button>
+    <button id="nextBtn" class="nav-btn primary" type="button">Next →</button>
+  </footer>
+
+  <!-- Question Navigator Modal -->
+  <div id="gridModal" class="modal-backdrop">
+    <div class="modal-box">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <strong id="gridTitle">Module 1 Navigator</strong>
+        <button id="closeGridBtn" class="nav-btn" style="padding:4px 10px;" type="button">✕</button>
+      </div>
+      <div id="qGrid" class="q-grid"></div>
+      <div style="font-size:12px;color:var(--muted);">Blue = Answered • Flag = Marked for Review</div>
+    </div>
+  </div>
+
+  <!-- Calculator Modal -->
+  <div id="calcModal" class="modal-backdrop">
+    <div class="modal-box" style="max-width:300px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+        <strong>SAT Calculator</strong>
+        <button id="closeCalcBtn" class="nav-btn" style="padding:4px 10px;" type="button">✕</button>
+      </div>
+      <input id="calcDisplay" class="calc-display" type="text" readonly value="0" />
+      <div class="calc-keys">
+        <button class="calc-key op" data-k="C">C</button>
+        <button class="calc-key op" data-k="(">(</button>
+        <button class="calc-key op" data-k=")">)</button>
+        <button class="calc-key op" data-k="/">÷</button>
+        <button class="calc-key" data-k="7">7</button>
+        <button class="calc-key" data-k="8">8</button>
+        <button class="calc-key" data-k="9">9</button>
+        <button class="calc-key op" data-k="*">×</button>
+        <button class="calc-key" data-k="4">4</button>
+        <button class="calc-key" data-k="5">5</button>
+        <button class="calc-key" data-k="6">6</button>
+        <button class="calc-key op" data-k="-">−</button>
+        <button class="calc-key" data-k="1">1</button>
+        <button class="calc-key" data-k="2">2</button>
+        <button class="calc-key" data-k="3">3</button>
+        <button class="calc-key op" data-k="+">+</button>
+        <button class="calc-key" data-k="0">0</button>
+        <button class="calc-key" data-k=".">.</button>
+        <button class="calc-key op" data-k="DEL">⌫</button>
+        <button class="calc-key eq" data-k="=">=</button>
+      </div>
+    </div>
+  </div>
+<script>
+  const MODULES = [
+    // MODULE 1 (20 Questions)
+    [
+      { eq: "5x − 8 = ax + 12", q: "In the given equation, a is a constant. If the equation has no solution, what is the value of a?", type: "mc", opts: ["3", "5", "8", "12"], ans: 1, exp: "No solution requires equal coefficients of x (a = 5) and different constants (−8 ≠ 12)." },
+      { eq: "3(x + 4) = 3x + b", q: "In the given equation, b is a constant. For what value of b does the equation have infinitely many solutions?", type: "mc", opts: ["4", "7", "12", "15"], ans: 2, exp: "Expanding gives 3x + 12 = 3x + b. Matching constants gives b = 12." },
+      { eq: "(m + 2)x − 9 = 6x + 3", q: "If the given equation has no solution, what is the value of the constant m?", type: "spr", ans: ["4"], exp: "Set coefficients equal: m + 2 = 6 → m = 4 (constants −9 ≠ 3)." },
+      { eq: "4(px − 2) = 8x − 8", q: "In the given equation, p is a constant. If the equation is satisfied by all real values of x, what is the value of p?", type: "mc", opts: ["1", "2", "4", "8"], ans: 1, exp: "Expanding gives 4px − 8 = 8x − 8, so 4p = 8 → p = 2." },
+      { eq: "(c − 3)x + 10 = 2x + d", q: "In the given equation, c and d are constants. Which condition guarantees infinitely many solutions?", type: "mc", opts: ["c = 5 and d = 10", "c = 5 and d = −10", "c = 1 and d = 10", "c = 1 and d = −10"], ans: 0, exp: "Match coefficients (c − 3 = 2 → c = 5) and constants (d = 10)." },
+      { eq: "(k + 1)x + 7 = 4x + 7", q: "If the given linear equation has exactly one solution, which statement must be true about k?", type: "mc", opts: ["k = 3", "k ≠ 3", "k = 4", "k ≠ 4"], ans: 1, exp: "Exactly one solution requires different slopes: k + 1 ≠ 4 → k ≠ 3." },
+      { eq: "2(3x − t) = 6x + 14", q: "In the given equation, t is a constant. For what value of t does the equation have infinitely many solutions?", type: "mc", opts: ["−7", "−2", "2", "7"], ans: 0, exp: "Expanding gives 6x − 2t = 6x + 14 → −2t = 14 → t = −7." },
+      { eq: "(r − 5)x + 2r − 6 = 7x + 18", q: "In the given equation, r is a constant. If the equation has infinitely many solutions, what is the value of r?", type: "spr", ans: ["12"], exp: "Match coefficients: r − 5 = 7 → r = 12 (check constants: 2(12) − 6 = 18)." },
+      { eq: "7x + q = 7(x − 2)", q: "For what value of the constant q does the equation above have infinitely many solutions?", type: "mc", opts: ["−14", "−2", "2", "14"], ans: 0, exp: "Expanding gives 7x + q = 7x − 14 → q = −14." },
+      { eq: "(n − 4)x + 11 = 5x + s", q: "In the given linear equation, n and s are constants. If n = 9, which value of s gives infinitely many solutions?", type: "mc", opts: ["0", "5", "11", "16"], ans: 2, exp: "When n = 9, 5x + 11 = 5x + s → s = 11." },
+      { eq: "", q: "A taxi service charges a fixed initial pickup fee plus a constant rate per kilometer. A 4-km ride costs $17, and a 10-km ride costs $35. What is the fixed pickup fee, in dollars?", type: "mc", opts: ["$3", "$5", "$7", "$9"], ans: 1, exp: "Rate = (35 − 17)/(10 − 4) = $3/km. Pickup fee = 17 − 4(3) = $5." },
+      { eq: "", q: "A fitness club charges a one-time joining fee plus a constant monthly fee thereafter. Total cost after 3 months is $94; after 7 months it is $186. What is the monthly fee, in dollars?", type: "spr", ans: ["23"], exp: "Monthly fee = (186 − 94)/(7 − 3) = 92/4 = $23." },
+      { eq: "", q: "Plan A costs $25/month plus $0.08 per text. Plan B costs $37/month plus $0.04 per text. For how many texts do both plans cost the same?", type: "mc", opts: ["200", "250", "300", "350"], ans: 2, exp: "25 + 0.08x = 37 + 0.04x → 0.04x = 12 → x = 300." },
+      { eq: "", q: "A school sells adult tickets for $12 and student tickets for $8. It sells 150 tickets and collects $1,520. How many adult tickets were sold?", type: "mc", opts: ["70", "80", "90", "100"], ans: 1, exp: "12a + 8(150 − a) = 1520 → 4a + 1200 = 1520 → a = 80." },
+      { eq: "", q: "Tank A contains 180 liters and drains at 6 L/min. Tank B contains 60 liters and fills at 4 L/min. After how many minutes will both tanks contain the same amount?", type: "mc", opts: ["10", "12", "15", "20"], ans: 1, exp: "180 − 6t = 60 + 4t → 120 = 10t → t = 12 minutes." },
+      { eq: "", q: "Carrier A charges $18 plus $0.12 per GB. Carrier B charges $30 plus $0.06 per GB. At what usage, in GB, are the monthly costs equal?", type: "spr", ans: ["200"], exp: "18 + 0.12g = 30 + 0.06g → 0.06g = 12 → g = 200 GB." },
+      { eq: "R = 15a + 9s", q: "A theater's revenue R is given above for a adult and s student tickets. If 80 tickets are sold and revenue is $960, how many adult tickets were sold?", type: "mc", opts: ["20", "30", "40", "50"], ans: 2, exp: "15a + 9(80 − a) = 960 → 6a = 240 → a = 40." },
+      { eq: "", q: "A courier charges $4.50 per delivery plus a fixed daily fee. On Monday, 8 deliveries cost $50. On Tuesday, 14 deliveries cost $77. What is the fixed daily fee?", type: "mc", opts: ["$12", "$14", "$16", "$18"], ans: 1, exp: "8(4.50) + f = 50 → 36 + f = 50 → f = $14." },
+      { eq: "3(2x − 5) = 21  →  Line 1: 6x − 5 = 21", q: "A student solves 3(2x − 5) = 21 starting with Line 1: 6x − 5 = 21, Line 2: 6x = 26, Line 3: x = 13/3. Which line first contains an error, and why?", type: "mc", opts: ["Line 1; 3 must be multiplied by both terms.", "Line 2; 21 should be subtracted.", "Line 3; divide by 5.", "No error."], ans: 0, exp: "Distributing 3 gives 6x − 15 = 21, not 6x − 5 = 21." },
+      { eq: "(x + 6)/3 = 5  →  x + 6 = 5/3", q: "A student simplifies (x + 6)/3 = 5 to x + 6 = 5/3. What is the error?", type: "mc", opts: ["They should multiply both sides by 3.", "They should subtract 6 first.", "They should divide x by 3 only.", "There is no error."], ans: 0, exp: "Multiplying both sides by 3 clears the denominator: x + 6 = 15." }
+    ],
+    // MODULE 2 (20 Questions)
+    [
+      { eq: "(a − 1)(x + 3) = (a − 1)x + 6", q: "In the given equation, a is a constant. For which value of a does the equation have infinitely many solutions (all real x)?", type: "mc", opts: ["−3", "0", "1", "3"], ans: 3, exp: "Expanding gives (a − 1)x + 3(a − 1) = (a − 1)x + 6. Setting constants equal: 3(a − 1) = 6 → a = 3." },
+      { eq: "2(px + 5) = 6x + 10", q: "If the given equation has infinitely many solutions, what is the value of the constant p?", type: "spr", ans: ["3"], exp: "2px + 10 = 6x + 10 → 2p = 6 → p = 3." },
+      { eq: "3x + h = 2(x + h) + x", q: "In the given equation, h is a constant. For what value of h does the equation have infinitely many solutions?", type: "mc", opts: ["0", "1", "2", "Every real value of h"], ans: 0, exp: "Combine like terms: 3x + h = 3x + 2h → h = 2h → h = 0." },
+      { eq: "(w + 2)(x − 1) = (w + 2)x + 9", q: "In the given equation, w is a constant. If the equation has infinitely many solutions, what is the value of w?", type: "mc", opts: ["−11", "−9", "9", "11"], ans: 0, exp: "Expand: (w + 2)x − (w + 2) = (w + 2)x + 9. Set constants equal: −(w + 2) = 9 → w = −11." },
+      { eq: "4x + 6 = ax + 6", q: "A student says that 4x + 6 = ax + 6 has no solution when a = 4. Is the student correct?", type: "mc", opts: ["Yes, because the coefficients match.", "Yes, because the constants match.", "No, it has infinitely many solutions.", "No, it has exactly one solution."], ans: 2, exp: "When a = 4, 4x + 6 = 4x + 6 is an identity, giving infinitely many solutions." },
+      { eq: "5(zx − 2) = 10x + 3", q: "In the given equation, z is a constant. For what value of z does the equation have no solution?", type: "spr", ans: ["2"], exp: "5zx − 10 = 10x + 3 → 5z = 10 → z = 2 (constants −10 ≠ 3)." },
+      { eq: "2(x + 4)", q: "A student claims 2(x + 4) = 2x + 4. Which expression is the correct expansion?", type: "mc", opts: ["2x + 4", "2x + 8", "x + 8", "2x − 8"], ans: 1, exp: "Distribute 2 to both terms inside: 2(x) + 2(4) = 2x + 8." },
+      { eq: "5x − 7 = 2x + 8  →  5x − 2x = 8 − 7", q: "A student solves 5x − 7 = 2x + 8 as 5x − 2x = 8 − 7, then 3x = 1, x = 1/3. What is the first error?", type: "mc", opts: ["The 2x should be added.", "The −7 should become +7, so the right side is 15.", "The 5x should be divided by 5.", "There is no error."], ans: 1, exp: "Adding 7 to both sides gives 5x − 2x = 8 + 7 = 15." },
+      { eq: "6(x − 2) = 6x − 12", q: "A student says 6(x − 2) = 6x − 12 has infinitely many solutions. Is that conclusion correct?", type: "mc", opts: ["Yes, it is true for every x.", "No, it has no solution.", "No, it has exactly one solution.", "Only when x = 0."], ans: 0, exp: "6x − 12 = 6x − 12 holds true for all real values of x." },
+      { eq: "(2x − 1)/3 = (x + 4)/2", q: "A student solves the equation above by cross-multiplying to get 4x − 2 = 3x + 12, then x = 14. Which statement is correct?", type: "mc", opts: ["The cross-multiplication is incorrect.", "The equation should give x = 10.", "The work is correct.", "The answer is x = 12."], ans: 2, exp: "2(2x − 1) = 3(x + 4) → 4x − 2 = 3x + 12 → x = 14. Both steps are completely correct." },
+      { eq: "4(2x − 3) = 13", q: "A student expands 4(2x − 3) as 8x − 3, then solves 8x − 3 = 13. What is the correct solution to the original equation?", type: "mc", opts: ["2", "25/8", "3", "4"], ans: 1, exp: "Correct expansion: 8x − 12 = 13 → 8x = 25 → x = 25/8." },
+      { eq: "x/4 + x/2 = 9  →  x + x = 9", q: "A student changes x/4 + x/2 = 9 into x + x = 9. What key step did they skip?", type: "mc", opts: ["Multiply every term by the LCD, 4.", "Divide every term by 4.", "Subtract x from both sides.", "Square both sides."], ans: 0, exp: "Multiplying every term by 4 yields x + 2x = 36." },
+      { eq: "", q: "A positive number x is increased by 30%, then the result is decreased by 30%. The final value is 182. What was the original number x?", type: "spr", ans: ["200"], exp: "x × 1.30 × 0.70 = 182 → 0.91x = 182 → x = 200." },
+      { eq: "", q: "A student has scores of 78, 84, and 91 on three tests. What score must the student earn on a fourth test to have an average of 85?", type: "mc", opts: ["85", "86", "87", "88"], ans: 2, exp: "(78 + 84 + 91 + x)/4 = 85 → 253 + x = 340 → x = 87." },
+      { eq: "3(x − a) = 2x + 5", q: "The equation above has solution x = 11. What is the value of the constant a?", type: "mc", opts: ["1", "2", "3", "4"], ans: 1, exp: "Substitute x = 11: 3(11 − a) = 2(11) + 5 → 33 − 3a = 27 → 3a = 6 → a = 2." },
+      { eq: "", q: "A rectangle has perimeter 54 cm. Its length is 3 cm more than twice its width. What is its width, in centimeters?", type: "mc", opts: ["7", "8", "9", "10"], ans: 1, exp: "2(w + 2w + 3) = 54 → 3w + 3 = 27 → 3w = 24 → w = 8 cm." },
+      { eq: "2(cx + 3) = 8x + 6", q: "In the given equation, c is a constant. For what value of c does the equation have infinitely many solutions?", type: "spr", ans: ["4"], exp: "2cx + 6 = 8x + 6 → 2c = 8 → c = 4." },
+      { eq: "", q: "A store marks an item up by 25%, then applies a 20% discount to the marked price. The final price is $100. What was the original price?", type: "mc", opts: ["$80", "$90", "$100", "$120"], ans: 2, exp: "P × 1.25 × 0.80 = 100 → 1.00P = 100 → P = $100." },
+      { eq: "", q: "The sum of two numbers is 48. One number is 8 less than three times the other. What is the smaller number?", type: "mc", opts: ["12", "13", "14", "15"], ans: 2, exp: "x + (3x − 8) = 48 → 4x = 56 → x = 14." },
+      { eq: "(p − 4)x + 9 = 2x + 9", q: "For what value of p does the equation above have infinitely many solutions?", type: "mc", opts: ["2", "4", "6", "9"], ans: 2, exp: "p − 4 = 2 → p = 6." }
+    ]
+  ];
+  let modIdx = 0;
+  let qIdx = 0;
+  let answers = [Array(20).fill(null), Array(20).fill(null)];
+  let flags = [Array(20).fill(false), Array(20).fill(false)];
+  let submitted = [false, false];
+  let secondsLeft = 35 * 60;
+  let timerInterval = null;
+
+  const modBadge = document.getElementById('modBadge');
+  const timerDisplay = document.getElementById('timerDisplay');
+  const submitBtn = document.getElementById('submitBtn');
+  const scoreBanner = document.getElementById('scoreBanner');
+  const scoreTitle = document.getElementById('scoreTitle');
+  const scaledEst = document.getElementById('scaledEst');
+  const nextModBtn = document.getElementById('nextModBtn');
+  const retryModBtn = document.getElementById('retryModBtn');
+
+  const qBadge = document.getElementById('qBadge');
+  const flagBtn = document.getElementById('flagBtn');
+  const mathBox = document.getElementById('mathBox');
+  const qText = document.getElementById('qText');
+  const optionsList = document.getElementById('optionsList');
+  const sprBox = document.getElementById('sprBox');
+  const sprInput = document.getElementById('sprInput');
+  const expBox = document.getElementById('expBox');
+
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const openGridBtn = document.getElementById('openGridBtn');
+  const gridModal = document.getElementById('gridModal');
+  const closeGridBtn = document.getElementById('closeGridBtn');
+  const qGrid = document.getElementById('qGrid');
+  const gridTitle = document.getElementById('gridTitle');
+
+  function startTimer() {
+    clearInterval(timerInterval);
+    secondsLeft = 35 * 60;
+    updateTimerText();
+    timerInterval = setInterval(() => {
+      if (submitted[modIdx]) return;
+      secondsLeft--;
+      updateTimerText();
+      if (secondsLeft <= 0) {
+        clearInterval(timerInterval);
+        gradeModule();
+      }
+    }, 1000);
+  }
+  function updateTimerText() {
+    const m = Math.floor(secondsLeft / 60);
+    const s = secondsLeft % 60;
+    timerDisplay.textContent = `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+  }
+
+  function renderQuestion() {
+    const list = MODULES[modIdx];
+    const item = list[qIdx];
+    const isDone = submitted[modIdx];
+
+    modBadge.textContent = `Module ${modIdx + 1} of 2`;
+    qBadge.textContent = `Question ${qIdx + 1} of ${list.length}`;
+    openGridBtn.textContent = `Question ${qIdx + 1} of ${list.length} ▲`;
+
+    flagBtn.classList.toggle('flagged', flags[modIdx][qIdx]);
+    flagBtn.textContent = flags[modIdx][qIdx] ? '⚑ Flagged' : '⚑ Mark for Review';
+
+    if (item.eq) {
+      mathBox.style.display = 'block';
+      mathBox.textContent = item.eq;
+    } else {
+      mathBox.style.display = 'none';
+    }
+
+    qText.textContent = item.q;
+    optionsList.innerHTML = '';
+    sprBox.style.display = 'none';
+    expBox.classList.remove('show');
+
+    if (item.type === 'mc') {
+      const letters = ['A', 'B', 'C', 'D'];
+      item.opts.forEach((optText, idx) => {
+        const div = document.createElement('div');
+        div.className = 'opt-item';
+        if (answers[modIdx][qIdx] === idx) div.classList.add('selected');
+        if (isDone) {
+          if (idx === item.ans) div.classList.add('correct-ans');
+          else if (answers[modIdx][qIdx] === idx) div.classList.add('wrong-ans');
+        }
+        div.innerHTML = `<span class="opt-letter">${letters[idx]}</span><span>${optText}</span>`;
+        if (!isDone) {
+          div.addEventListener('click', () => {
+            answers[modIdx][qIdx] = idx;
+            renderQuestion();
+          });
+        }
+        optionsList.appendChild(div);
+      });
+    } else {
+      sprBox.style.display = 'block';
+      sprInput.value = answers[modIdx][qIdx] || '';
+      sprInput.disabled = isDone;
+      sprInput.oninput = (e) => {
+        answers[modIdx][qIdx] = e.target.value.trim();
+      };
+    }
+
+    if (isDone) {
+      const correctTxt = item.type === 'mc' ? ['A', 'B', 'C', 'D'][item.ans] : item.ans[0];
+      expBox.innerHTML = `<strong>Correct Answer: ${correctTxt}</strong><br>${item.exp}`;
+      expBox.classList.add('show');
+    }
+
+    prevBtn.disabled = qIdx === 0;
+    nextBtn.textContent = qIdx === list.length - 1 ? 'Review Grid' : 'Next →';
+  }
+
+  function gradeModule() {
+    submitted[modIdx] = true;
+    clearInterval(timerInterval);
+    const list = MODULES[modIdx];
+    let correct = 0;
+
+    list.forEach((item, idx) => {
+      const userAns = answers[modIdx][idx];
+      if (item.type === 'mc') {
+        if (userAns === item.ans) correct++;
+      } else if (userAns) {
+        const clean = userAns.replace(/\s+/g, '').toLowerCase();
+        if (item.ans.includes(clean)) correct++;
+      }
+    });
+
+    const estScore = Math.round(200 + (correct / list.length) * 600);
+    scoreTitle.textContent = `Module ${modIdx + 1} Score: ${correct} / ${list.length}`;
+    scaledEst.textContent = `Estimated Section Pace: ~${estScore} / 800`;
+    nextModBtn.textContent = modIdx === 0 ? 'Start Module 2 →' : 'Switch to Module 1';
+    scoreBanner.classList.add('show');
+    renderQuestion();
+  }
+
+  function switchModule(targetMod) {
+    modIdx = targetMod;
+    qIdx = 0;
+    scoreBanner.classList.toggle('show', submitted[modIdx]);
+    if (!submitted[modIdx]) startTimer();
+    renderQuestion();
+  }
+  flagBtn.addEventListener('click', () => {
+    flags[modIdx][qIdx] = !flags[modIdx][qIdx];
+    renderQuestion();
+  });
+
+  prevBtn.addEventListener('click', () => {
+    if (qIdx > 0) {
+      qIdx--;
+      renderQuestion();
+    }
+  });
+
+  nextBtn.addEventListener('click', () => {
+    if (qIdx < MODULES[modIdx].length - 1) {
+      qIdx++;
+      renderQuestion();
+    } else {
+      openNavigator();
+    }
+  });
+
+  submitBtn.addEventListener('click', () => {
+    if (submitted[modIdx]) return;
+    if (confirm(`Submit Module ${modIdx + 1} and view your score?`)) {
+      gradeModule();
+    }
+  });
+
+  nextModBtn.addEventListener('click', () => {
+    switchModule(modIdx === 0 ? 1 : 0);
+  });
+
+  retryModBtn.addEventListener('click', () => {
+    answers[modIdx] = Array(20).fill(null);
+    flags[modIdx] = Array(20).fill(false);
+    submitted[modIdx] = false;
+    scoreBanner.classList.remove('show');
+    qIdx = 0;
+    startTimer();
+    renderQuestion();
+  });
+
+  // Question Navigator Grid
+  function openNavigator() {
+    gridTitle.textContent = `Module ${modIdx + 1} Navigator`;
+    qGrid.innerHTML = '';
+    MODULES[modIdx].forEach((_, idx) => {
+      const btn = document.createElement('button');
+      btn.className = 'grid-cell';
+      if (answers[modIdx][idx] !== null && answers[modIdx][idx] !== '') btn.classList.add('answered');
+      if (idx === qIdx) btn.classList.add('current');
+      if (flags[modIdx][idx]) btn.classList.add('flagged');
+      btn.textContent = idx + 1;
+      btn.addEventListener('click', () => {
+        qIdx = idx;
+        gridModal.classList.remove('open');
+        renderQuestion();
+      });
+      qGrid.appendChild(btn);
+    });
+    gridModal.classList.add('open');
+  }
+
+  openGridBtn.addEventListener('click', openNavigator);
+  closeGridBtn.addEventListener('click', () => gridModal.classList.remove('open'));
+
+  // Built-in Calculator Logic
+  const calcModal = document.getElementById('calcModal');
+  const calcDisplay = document.getElementById('calcDisplay');
+  let calcExpr = '';
+
+  document.getElementById('openCalcBtn').addEventListener('click', () => calcModal.classList.add('open'));
+  document.getElementById('closeCalcBtn').addEventListener('click', () => calcModal.classList.remove('open'));
+
+  document.querySelectorAll('.calc-key').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const k = btn.dataset.k;
+      if (k === 'C') {
+        calcExpr = '';
+        calcDisplay.value = '0';
+      } else if (k === 'DEL') {
+        calcExpr = calcExpr.slice(0, -1);
+        calcDisplay.value = calcExpr || '0';
+      } else if (k === '=') {
+        try {
+          calcExpr = String(Function(`"use strict";return (${calcExpr})`)());
+          calcDisplay.value = calcExpr;
+        } catch {
+          calcDisplay.value = 'Error';
+          calcExpr = '';
+        }
+      } else {
+        calcExpr += k;
+        calcDisplay.value = calcExpr;
+      }
+    });
+  });
+
+  // Start Exam
+  startTimer();
+  renderQuestion();
+</script>
+</body>
+</html>
